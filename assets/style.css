@@ -16,6 +16,10 @@ body {
   text-align: center;
 }
 
+.modebar {
+  display: none !important;
+}
+
 .create_container2 {
   align-items: center;
   border-radius: 15px;

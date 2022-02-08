@@ -8,7 +8,7 @@ import dash_table as dt
 import glob
 import os
 
-col_list = ["Volumen", "Placa", "Vendedor", "Fecha", "SubTotal", "Pago", "Inicio"]
+col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
 dirname = os.path.dirname(__file__)
 path = os.path.join(dirname, 'otro/')
 
@@ -184,6 +184,10 @@ html.Div([
 
 #3.1 PRIMER DIV DATATABLE
     html.Div([
+html.Label("Top clientes del mes", style={'color': '#00622b',
+                                                    'font' : 'Arial',
+                                                    'font-weight': 'bold',
+                                                    'fontSize': 14,}),
             dt.DataTable(id = 'my_datatable',
                          columns=[{'name': i, 'id': i} for i in
                                   df2.loc[:, ["Placa", "Volumen"]]],
@@ -365,11 +369,11 @@ def update_graph(select_years):
 
     return [
 
-        html.H6(children='Ventas x Año m3',
+        html.H6(children='Ventas por Año',
                 style={'textAlign': 'center',
                        'color': '#00622b'}),
 
-        html.P('{0:,.2f}'.format(current_year),
+        html.P('m3  {0:,.2f}'.format(current_year),
                style={'textAlign': 'center',
                       'color': '#f18c24',
                       'font-weight': 'bold',
@@ -392,12 +396,12 @@ def update_graph(select_years, select_months):
 
     return [
 
-        html.H6(children='Ventas x Mes',
+        html.H6(children='Ventas por Mes',
                 style={'textAlign': 'center',
                        
                        'color': '#00622b'}),
 
-        html.P('{0:,.2f}'.format(current_month),
+        html.P('m3  {0:,.2f}'.format(current_month),
                style={'textAlign': 'center',
                       'color': '#f18c24',
                       'font-weight': 'bold',
@@ -422,7 +426,7 @@ def update_graph(select_years):
                 style={'textAlign': 'center',
                        'color': '#00622b'}),
 
-        html.P('${0:,.2f}'.format(previous_year),
+        html.P('m3  {0:,.2f}'.format(previous_year),
                style={'textAlign': 'center',
                       'color': '#f18c24',
                       'font-weight': 'bold',
@@ -500,7 +504,7 @@ def update_graph(select_years, select_months):
                 style={'textAlign': 'center',
                        'color': '#00622b'}),
 
-        html.P('${0:,.2f}'.format(previous_year),
+        html.P('m3  {0:,.2f}'.format(previous_year),
                style={'textAlign': 'center',
                       'color': '#f18c24',
                       'font-weight': 'bold',
