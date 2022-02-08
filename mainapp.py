@@ -6,11 +6,13 @@ import plotly.graph_objs as go
 import pandas as pd
 import dash_table as dt
 import glob
-
+import os
 
 col_list = ["Volumen", "Placa", "Vendedor", "Fecha", "SubTotal", "Pago", "Inicio"]
+dirname = os.path.dirname(__file__)
+path = os.path.join(dirname, 'otro/')
 
-path = r'C:\Users\pez_g\Desktop\proyecto cañaveral 2022\VICENTE' # use your path
+#path = r'C:\Users\pez_g\Desktop\proyecto cañaveral 2022\VICENTE' # use your path
 all_files = glob.glob(path + "/*.xls")
 
 li = []
