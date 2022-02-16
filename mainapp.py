@@ -8,10 +8,10 @@ import pandas as pd
 import dash_table as dt
 import glob
 import os
-import locale
+
 from dash.exceptions import PreventUpdate
 
-locale.setlocale(locale.LC_ALL,'es_ES.UTF-8')
+
 
 #Definir lista de columnas para DF Principal
 col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
