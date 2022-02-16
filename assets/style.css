@@ -16,8 +16,98 @@ body {
   text-align: center;
 }
 
+.flex_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.chart {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+
 .modebar {
   display: none !important;
+}
+
+.value_indicator {
+  display: flex;
+  flex-direction: row;
+  margin-top: 4px;
+}
+
+.value_and_indicator {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: center;
+  margin-top: -10px;
+}
+
+.monthly_difference_value {
+  display: flex;
+  flex-direction: row;
+}
+
+.monthly_pct_change {
+  display: flex;
+  flex-direction: row;
+}
+
+.difference_value_row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
+
+
+.text_previous_month {
+  display: flex;
+  flex-direction: row;
+  margin-left: 65px;
+  margin-top: -12px;
+}
+
+.difference_value_column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+}
+
+.monthly_value {
+  display: flex;
+  flex-direction: row;
+}
+.card_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.card_size {
+  background-color: #ffffff;
+  width: 260px;
+  height: 160px;
+}
+
+
+.text_graph_column {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
+  
+  
+  
 }
 
 .create_container2 {
