@@ -24,6 +24,12 @@ body {
   gap: 10px;
 }
 
+.flex_container2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .chart {
   display: flex;
   flex-direction: row;

@@ -18,7 +18,7 @@ col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
 
 #Juntar archivos excel dentro del folder para hacer merge
 dirname = os.path.dirname(__file__)
-path = os.path.join(dirname, 'otro2/')
+path = os.path.join(dirname, 'otro/')
 
 all_files = glob.glob(path + "/*.xls")
 
@@ -120,7 +120,7 @@ html.Div([
     ], className='one-third column', id = 'title111')
 
 # FIN DE DIV 1
-], className = 'flex_container2'), 
+]), 
 
 
 #2 
@@ -193,7 +193,7 @@ html.Div([
 
         ], className='one-half column', id = 'title2'),
 #FIN DE DIV 2
-], className = 'flex_container'),
+]),
 
 
 #3
@@ -255,15 +255,21 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '420px'}),
 
 
-#FIN DE DIV 3 
-], className = 'flex_container'),
+ 
+]),
 
 
+####### TRABAJANDO AQUI HOY
+# 
+#  
+#4
 
 
+html.Div([
 
-
-#4 DIV GRANDE DE CUADRO DE KPIS2   
+#
+# 
+    
 html.Div([
 
         #KPI de Total_Ingresos
@@ -276,7 +282,8 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Costo_GNV
+####TAREAAA RESOLVER ESTO DE TEXT GRAPH COLUMN PARA QUE ALINEE BIEN LOS CUADROS
+        #KPI 2
         html.Div([
             html.Div(id = 'text22',
                      className = 'card_size'),
@@ -286,7 +293,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Gastos_Operacion
         html.Div([
             html.Div(id = 'text33',
                      className = 'card_size'),
@@ -296,7 +302,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Gastos_Administracion
         html.Div([
             html.Div(id = 'text44',
                      className = 'card_size'),
@@ -306,7 +311,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Gastos_CG
         html.Div([
             html.Div(id = 'text55',
                      className = 'card_size'),
@@ -316,7 +320,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Impuestos
         html.Div([
             html.Div(id = 'text66',
                      className = 'card_size'),
@@ -326,7 +329,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Total_Egresos
         html.Div([
             html.Div(id = 'text77',
                      className = 'card_size'),
@@ -336,7 +338,6 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-        #KPI de Resultado_Bs
         html.Div([
             html.Div(id = 'text88',
                      className = 'card_size'),
@@ -346,19 +347,18 @@ html.Div([
             ], className = 'chart')
         ], className = 'text_graph_column'),
 
-#Fin de DIV 4.1
-
-], className = 'flex_container'),
+    ], className = 'flex_container'),
 
 
+#
+    ],),
 
 
 
-
-#5
+#4
 html.Div([
 
-#5.1  DIV BARCHART VENDEDORES
+#4.1  DIV BARCHART VENDEDORES
 
     html.Div([
 
@@ -368,7 +368,7 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '400px'}),
         
 
-#5.2 DIV LINECHART AÑO A AÑO
+#4.2 DIV LINECHART AÑO A AÑO
 
     html.Div([
 
@@ -377,7 +377,7 @@ html.Div([
 
         ], className='create_container2 six columns', style={'height': '400px'}),
 
-#5.3 DIV BARCHART VENDEDORES
+#4.3 DIV BARCHART VENDEDORES
 
     html.Div([
 
@@ -387,13 +387,13 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '400px'}),
 
 
-#FIN DE DIV 5
-], className = 'flex_container'), 
 
-#6
+]), 
+
+#5
 html.Div([
 
-#6.1
+#5.1
 html.Div([
 
             dcc.Graph(id = 'bar_chart_3', config={'displayModeBar': 'hover'},
@@ -402,10 +402,8 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '400px'}),
 
 
-# FIN DE DIV 6
-], className = 'flex_container'), 
+]), 
 
-# FIN DE MAIN APP
 ], id = 'mainContainer', style={'display': 'flex', 'flex-direction': 'column'})
 
 
@@ -589,7 +587,7 @@ def update_graph(select_years, select_months):
               )
               
 def update_graph(select_years, select_months):
-    sales6 = sales.groupby(['Ano','Mes', 'Dia', 'NombreDia'])['Volumen'].sum().reset_index()
+    sales6 = sales.groupby(['Ano','Mes', 'Dia'])['Volumen'].sum().reset_index()
     sales7 = sales6[(sales6['Ano'] == select_years) & (sales6['Mes'] == select_months)]
 
    
@@ -612,8 +610,8 @@ def update_graph(select_years, select_months):
                 hovertext=
                 '<b>Mes</b>: ' + sales7['Mes'].astype(str) + '<br>' +
                 '<b>Dia</b>: ' + sales7['Dia'].astype(str) + '<br>' +
-                '<b>Dia Semana</b>: ' + sales7['NombreDia'].astype(str) + '<br>' +
-                '<b>Ventas</b>: m3  ' + [f'{x:,.0f}' for x in sales7['Volumen']] + '<br>'
+                
+                '<b>Sales</b>: Bs  ' + [f'{x:,.0f}' for x in sales7['Volumen']] + '<br>'
 
             ),
 
