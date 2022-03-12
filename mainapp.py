@@ -18,7 +18,7 @@ col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
 
 #Juntar archivos excel dentro del folder para hacer merge
 dirname = os.path.dirname(__file__)
-path = os.path.join(dirname, 'otro2/')
+path = os.path.join(dirname, 'otro/')
 
 all_files = glob.glob(path + "/*.xls")
 
@@ -249,8 +249,8 @@ html.Div([
                                   df2.loc[:, ["Placa", "Cargas", "Diferencia"]]],
                         
                          virtualization=True,
-                         style_cell={'textAlign': 'center',
-                                     'min-width': '40px',
+                         style_cell={'textAlign': 'left',
+                                     'min-width': '10px',
                                      'backgroundColor': '#ffffff',
                                      'color': '#00622b',
                                      'border-bottom': '0.01rem solid #19AAE1'},
