@@ -78,20 +78,7 @@ sales['NombreDia'] = sales['Fecha'].dt.day_name()
 
 
 #CREAR SEGUNDO DATAFRAME
-df = sales.groupby(['Ano', 'Placa' ,'Mes'])['Volumen'].count().reset_index()
-
-#df3 = sales.groupby(['Ano', 'Placa', 'Mes'])['Volumen'].count().reset_index()
-
-#df2["Diferencia"] = df2.groupby('Placa')['Volumen'].apply(lambda x: x.div(x.iloc[0]).subtract(1).mul(100))
-
-df['Diferencia'] = (df['Volumen'].diff())
-
-df2 = df.sort_values(by='Volumen', ascending=False)
-
-
-#df2["Diferencia"] = df2["Diferencia"].astype(str)
-
-#df2["Diferencia"] = df2['Volumen'].diff(1)
+df2 = sales.groupby(['Ano','Mes', 'Placa'])['Volumen'].count().nlargest(n=10000).reset_index()
 
 #df2['Fecha'] = pd.to_datetime(sales['Fecha'])
 #df2['Mes'] = sales['Fecha'].dt.month
@@ -244,11 +231,11 @@ html.Div([
                                                     'fontSize': 17,}),
             dt.DataTable(id = 'my_datatable',
                          columns=[{'name': i, 'id': i} for i in
-                                  df2.loc[:, ["Placa", "Volumen", "Diferencia"]]],
+                                  df2.loc[:, ["Placa", "Volumen"]]],
                         
                          virtualization=True,
                          style_cell={'textAlign': 'left',
-                                     'min-width': '5px',
+                                     'min-width': '100px',
                                      'backgroundColor': '#ffffff',
                                      'color': '#00622b',
                                      'border-bottom': '0.01rem solid #19AAE1'},
@@ -260,33 +247,6 @@ html.Div([
                          style_as_list_view=True,
                          style_table={'height': '320px', 'overflowY': 'auto'},
                          style_data={'styleOverflow': 'hidden', 'color': '#00622b'},
-
-
-                         style_data_conditional=[
-                            
-                                                        {
-                                'if': {
-                                    'filter_query': '{Diferencia} > 1 && {Diferencia} < 411',
-                                    'column_id': 'Diferencia'
-                                },
-                                'backgroundColor': 'green',
-                                'color': 'white'
-                                 },
-                                {
-                                'if': {
-                                    'filter_query': '{Diferencia} < 1 && {Diferencia} > -411',
-                                    'column_id': 'Diferencia'
-                                },
-                                'backgroundColor': 'red',
-                                'color': 'white'
-                            },
-                            
-                            
-                            ],
-
-
-
-
                          fixed_rows={'headers': True},
                          sort_action='native',
                          sort_mode='multi')
