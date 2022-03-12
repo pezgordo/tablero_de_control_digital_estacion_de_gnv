@@ -18,7 +18,7 @@ col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
 
 #Juntar archivos excel dentro del folder para hacer merge
 dirname = os.path.dirname(__file__)
-path = os.path.join(dirname, 'otro/')
+path = os.path.join(dirname, 'otro2/')
 
 all_files = glob.glob(path + "/*.xls")
 
@@ -87,6 +87,8 @@ df = sales.groupby(['Ano', 'Placa' ,'Mes'])['Volumen'].count().reset_index()
 df['Diferencia'] = (df['Volumen'].diff())
 
 df2 = df.sort_values(by='Volumen', ascending=False)
+
+df2.rename(columns={"Volumen":"Cargas"}, inplace=True)
 
 
 #df2["Diferencia"] = df2["Diferencia"].astype(str)
@@ -244,11 +246,11 @@ html.Div([
                                                     'fontSize': 17,}),
             dt.DataTable(id = 'my_datatable',
                          columns=[{'name': i, 'id': i} for i in
-                                  df2.loc[:, ["Placa", "Volumen", "Diferencia"]]],
+                                  df2.loc[:, ["Placa", "Cargas", "Diferencia"]]],
                         
                          virtualization=True,
-                         style_cell={'textAlign': 'left',
-                                     'min-width': '5px',
+                         style_cell={'textAlign': 'center',
+                                     'min-width': '40px',
                                      'backgroundColor': '#ffffff',
                                      'color': '#00622b',
                                      'border-bottom': '0.01rem solid #19AAE1'},

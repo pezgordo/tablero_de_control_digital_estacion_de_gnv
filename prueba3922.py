@@ -82,6 +82,9 @@ df = sales.groupby(['Ano', 'Placa', 'Mes'])['Volumen'].count().reset_index()
 df['Diferencia'] = df['Volumen'].diff()
 df['Anterior'] = df['Volumen'].shift()
 df['CambioPorcent'] = df['Volumen'].pct_change()
+
+df.rename(columns={"Volumen":"Cargas"}, inplace=True)
+
 #df['MesAnterior'] = 1 - df.Diferencia *  df.Volumen
 
 print(df)
