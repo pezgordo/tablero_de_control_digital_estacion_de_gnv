@@ -8,6 +8,7 @@ import pandas as pd
 import dash_table as dt
 import glob
 import os
+import plotly.express as px
 
 from dash.exceptions import PreventUpdate
 
@@ -35,34 +36,6 @@ sales = pd.concat(li, axis=0, ignore_index=True)
 resumen = pd.read_excel('resumen.xlsx')
 
 
-
-#cwd = os.path.abspath('') 
-#files = os.listdir(cwd) 
-#col_list = ["Volumen", "Placa", "Vendedor", "Fecha", "SubTotal", "Pago", "Inicio"]
-#sales = pd.DataFrame()
-#for file in files:
-#     if file.endswith('.xls'):
-#         sales = sales.append(pd.read_excel(file, usecols=col_list), ignore_index=True) 
-
-
-
-
-
-
-
-#COLUMNAS QUE VAMOS A USAR
-#col_list = ["Volumen", "Placa", "Vendedor", "Fecha", "SubTotal", "Pago", "Inicio"]
-
-#IMPORTAR PRIMER DATAFRAME
-#sales = pd.read_excel('T2021.xls', usecols=col_list)
-
-#df2 = sales.groupby([(sales.Fecha.dt.month), (sales.Fecha.dt.day), ('Placa')])['Volumen'].count().nlargest(n=50)
-
-#df2 = sales.groupby([(sales.Fecha.dt.month), (sales.Fecha.dt.day), ('Placa')])['Volumen'].count().nlargest(n=50)
-
-#sales = pd.read_csv('12021.csv', usecols=col_list,encoding='latin-1')
-
-
 #convertir la columna FECHAS a formato datetime
 sales['Fecha'] = pd.to_datetime(sales['Fecha'])
 sales['Ano'] = sales['Fecha'].dt.year
@@ -70,11 +43,7 @@ sales['Mes'] = sales['Fecha'].dt.month
 sales['Dia'] = sales['Fecha'].dt.day
 sales['Hora'] = sales['Fecha'].dt.hour
 sales['NombreDia'] = sales['Fecha'].dt.day_name()
-#sales['NombreDia'] = sales['NombreDia'].astype('str')
 
-
-#sales['NombreDia'] = sales['NombreDia'].astype('|S')
-#sales['NombreDia'] = sales['NombreDia'].apply(lambda s: s.decode('utf-8'))
 
 
 #CREAR SEGUNDO DATAFRAME
@@ -91,13 +60,14 @@ df2 = df.sort_values(by='Volumen', ascending=False)
 df2.rename(columns={"Volumen":"Cargas"}, inplace=True)
 
 
-#df2["Diferencia"] = df2["Diferencia"].astype(str)
+#CREAR TERCER DATAFRAME
+dfplacas = pd.read_excel('Placas2.xlsx')
 
-#df2["Diferencia"] = df2['Volumen'].diff(1)
+df3 = pd.merge(sales, dfplacas, how="left", on="Placa")
 
-#df2['Fecha'] = pd.to_datetime(sales['Fecha'])
-#df2['Mes'] = sales['Fecha'].dt.month
-#df2['Dia'] = sales['Fecha'].dt.day
+
+
+
 
 font_awesome = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
 meta_tags = [{"name": "viewport", "content": "width=device-width"}]
@@ -110,7 +80,7 @@ server = app.server
 #EMPIEZA LA APLICACION DASH
 app.layout = html.Div([
 
-#1
+# INICIO DIV 1
 html.Div([
 
     #1.1 DIV SUPERIOR LOGO
@@ -138,7 +108,7 @@ html.Div([
 ], className = 'flex_container2'), 
 
 
-#2 
+# INICIO DIV 2 
 html.Div([
         #2.1 SLIDER PARA ESCOGER EL AÑO
         html.Div([
@@ -150,10 +120,7 @@ html.Div([
                        min = 2017,
                        max = 2022,
                        step = 1,
-                       value= 2021,
-                       #marks={str(yr): str(yr) for yr in range(1, 13)},
-                       
-
+                       value= 2022,                  
                        marks={
                            2017: '2017',
                            2018: '2018',
@@ -166,12 +133,6 @@ html.Div([
                         
                     ], className='one-third column', id = 'title1'),
 
-
-        
-               
-
-          
-
         #2.2 SLIDER PARA ESCOGER EL MES
         html.Div([
             html.P('Mes', className='fix_label', style= {'color': '#00622b'}),
@@ -182,9 +143,7 @@ html.Div([
                        min = 1,
                        max = 12,
                        step = 1,
-                       value= 12,
-                       #marks={str(yr): str(yr) for yr in range(1, 13)},
-                       
+                       value= 3,                     
 
                        marks={
                            1: 'Ene',
@@ -211,10 +170,10 @@ html.Div([
 ], className = 'flex_container'),
 
 
-#3
+# INICIO DIV 3
 html.Div([
 
-#3.1 PRIMER DIV KPIs 
+    #3.1 PRIMER DIV KPIs 
     html.Div([
            
             html.Div(id = 'text2'),
@@ -229,7 +188,7 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '420px'}),
 
 
-#3.2 SEGUNDO DIV LINECHART
+    #3.2 SEGUNDO DIV LINECHART
     html.Div([
 
             dcc.Graph(id = 'line_chart', config={'displayModeBar': 'hover'},
@@ -238,7 +197,7 @@ html.Div([
         ], className='create_container2 six columns', style={'height': '420px'}),
 
 
-#3.3 TERCER DIV DATATABLE
+    #3.3 TERCER DIV DATATABLE
     html.Div([
             html.Label("Top clientes del mes", style={'color': '#00622b', 
                                                     'font' : 'Arial',
@@ -262,7 +221,6 @@ html.Div([
                          style_as_list_view=True,
                          style_table={'height': '320px', 'overflowY': 'auto'},
                          style_data={'styleOverflow': 'hidden', 'color': '#00622b'},
-
 
                          style_data_conditional=[
                             
@@ -397,10 +355,10 @@ html.Div([
 
 
 
-#5
+# INICIO DIV 5
 html.Div([
 
-#5.1  DIV BARCHART VENDEDORES
+    #5.1  DIV BARCHART VENDEDORES
 
     html.Div([
 
@@ -410,7 +368,7 @@ html.Div([
         ], className='create_container2 two columns', style={'height': '400px'}),
         
 
-#5.2 DIV LINECHART AÑO A AÑO
+    #5.2 DIV LINECHART AÑO A AÑO
 
     html.Div([
 
@@ -419,7 +377,7 @@ html.Div([
 
         ], className='create_container2 six columns', style={'height': '400px'}),
 
-#5.3 DIV BARCHART VENDEDORES
+    #5.3 DIV BARCHART VENDEDORES
 
     html.Div([
 
@@ -432,17 +390,24 @@ html.Div([
 #FIN DE DIV 5
 ], className = 'flex_container'), 
 
-#6
+# INICIO DE DIV 6
 html.Div([
 
-#6.1
-html.Div([
+    #6.1 BARCHART RANKING DIA DE LA SEMANA
+    html.Div([
 
             dcc.Graph(id = 'bar_chart_3', config={'displayModeBar': 'hover'},
                       ),
 
         ], className='create_container2 two columns', style={'height': '400px'}),
 
+    #6.2 DONUT CHART SINDICATOS
+    html.Div([
+
+            dcc.Graph(id = 'donut_chart', config={'displayModeBar': 'hover'},
+                      style={'height': '600px'})
+
+        ], className='create_container2 eight columns', style={'height': '400px'}),
 
 # FIN DE DIV 6
 ], className = 'flex_container'), 
@@ -952,7 +917,7 @@ def update_graph(select_years, select_months):
 
 
         'layout': go.Layout(
-            title={'text': 'Houras del dia' + ' ' + str(select_months) + str(" ") + str((select_years)),
+            title={'text': 'Horas del dia' + ' ' + str(select_months) + str(" ") + str((select_years)),
                    'y': 0.99,
                    'x': 0.5,
                    'xanchor': 'center',
@@ -3044,6 +3009,26 @@ def update_graph(select_years):
     }
 
 ####### TERMINA CALLBACK DE TEXT88 Y CHART88 ####### Resultado Bs
+
+
+###### INICIA CALLBACK DE Donut Chart ######
+@app.callback(Output('donut_chart', 'figure'),
+              [Input('select_years','value')],
+              [Input('select_months','value')])
+def update_graph(select_years, select_months):
+    sales5 = df3.groupby(['Ano', 'Mes', 'Sindicato'])['Volumen'].sum().reset_index()
+    sales6 = sales5[(sales5['Ano'] == select_years) & (sales5['Mes'] == select_months)].sort_values(by = ['Volumen'], ascending = False)#.nlargest(7, columns = ['Volumen'])
+    
+    fig = px.pie(sales6, values='Volumen', names='Sindicato',title="Ventas por Sindicato", width=800, height=800, hole=.3)
+    return fig
+
+    ####LOGRAR HACER QUE EL GRAFICO FUNCIONE!
+    
+
+
+  
+
+
 
 #INICIO DE APP
 
