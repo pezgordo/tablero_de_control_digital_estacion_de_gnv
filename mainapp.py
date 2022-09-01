@@ -144,7 +144,7 @@ html.Div([
                        max = 12,
                        step = 1,
                        #CAMBIAR ESTO AL MES CORRESPONDIENTE CADA MES###################################3
-                       value= 6,                     
+                       value= 8,                     
 
                        marks={
                            1: 'Ene',
