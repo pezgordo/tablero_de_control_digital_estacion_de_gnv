@@ -19,7 +19,7 @@ col_list = ["Volumen", "Placa", "Vendedor", "Fecha"]
 
 #Juntar archivos excel dentro del folder para hacer merge
 dirname = os.path.dirname(__file__)
-path = os.path.join(dirname, 'otro3/')
+path = os.path.join(dirname, 'otro2/')
 
 all_files = glob.glob(path + "/*.xls")
 
