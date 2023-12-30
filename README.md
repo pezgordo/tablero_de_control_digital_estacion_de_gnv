@@ -1,6 +1,6 @@
 ### Gas Station Business Intelligence Dashboard
 
-[GitHub](https://web-control-env.up.railway.app/)
+[Link To App](https://web-control-env.up.railway.app/)
 
 Welcome to the Gas Station Business Intelligence Dashboard, a powerful web application developed with Python using Plotly Dash and Pandas. This dynamic tool extracts crucial information from your gas station database, providing comprehensive insights through interactive and visually appealing charts.
 
@@ -26,7 +26,9 @@ Employee Performance:
 Evaluate the efficiency of your workforce by identifying top-performing employees. Use this insight for recognition, training, or staffing adjustments.
 Hourly and Daily Sales Trends:
 
-Discover peak selling hours within the 24-hour cycle. Understand when your gas station experiences the highest demand and adjust staffing or promotions accordingly.
+Discover peak selling hours within the 24-hour cycle. Understand when your gas station experiences 
+the highest demand and adjust staffing or promotions accordingly.
 Weekly Sales Patterns:
 
 Identify trends in weekly sales, empowering you to optimize staffing levels, marketing efforts, and inventory management.
+![Control App](https://github.com/pezgordo/tablero_de_control_digital_estacion_de_gnv/blob/master/cana_ad_1.png)
